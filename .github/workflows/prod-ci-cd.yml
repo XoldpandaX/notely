@@ -43,9 +43,7 @@ jobs:
         with:
           name: application
           path: ./dist
-      - run: cd ..
       - run: ls -l
-      - run: cd notely
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
