@@ -37,6 +37,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
       - name: Download built application on the previous job
         uses: actions/download-artifact@v2
         with:
