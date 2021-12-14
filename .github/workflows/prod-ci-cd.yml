@@ -33,6 +33,7 @@ jobs:
           retention-days: 20
 
   deploy:
+    needs: [build]
     runs-on: ubuntu-latest
 
     steps:
