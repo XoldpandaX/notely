@@ -1,0 +1,49 @@
+name: notely prod Ci/CD(firebase hosting)
+
+on:
+  push:
+    branches: [ main ]
+#   pull_request:
+#     branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+      - uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+      - run: yarn --frozen-lockfile
+      # - run: копировать переменные окружения
+      - run: yarn test:unit
+      - run: yarn build
+      - name: Archive production artifacts
+      - uses: actions/upload-artifact@v2
+        with:
+          name: application
+          path: dist
+          retention-days: 20
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download built application on the previous job
+      - uses: actions/download-artifact@v2
+        with:
+          name: application
+      - run: ls -l
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NOTELY_456FD }}'
+          channelId: live
+          projectId: notely-456fd
