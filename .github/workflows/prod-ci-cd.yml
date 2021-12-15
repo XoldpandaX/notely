@@ -15,7 +15,7 @@ jobs:
     uses: XoldpandaX/notely/.github/workflows/build_and_archive.yml@main
 
   deploy:
-    needs: [build]
+    needs: [build_and_archive]
     runs-on: ubuntu-latest
 
     steps:
