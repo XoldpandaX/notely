@@ -3,7 +3,7 @@ name: lint + test
 on:
   workflow_call:
     secrets:
-      github_token:
+      g_token:
         required: true
       firebase_service_account:
         required: true
@@ -22,7 +22,7 @@ jobs:
       - run: ls -l
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: ${{ secrets.github_token }}
+          repoToken: ${{ secrets.g_token }}
           firebaseServiceAccount: ${{ secrets.firebase_service_account }}
           channelId: live
           projectId: notely-456fd
