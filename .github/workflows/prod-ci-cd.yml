@@ -14,21 +14,6 @@ jobs:
     needs: [lint_test]
     uses: XoldpandaX/notely/.github/workflows/build_and_archive.yml@main
 
-  deploy:
+  deploy_prod:
     needs: [build_and_archive]
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: Download built application on the previous job
-        uses: actions/download-artifact@v2
-        with:
-          name: application
-          path: ./dist
-      - run: ls -l
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NOTELY_456FD }}'
-          channelId: live
-          projectId: notely-456fd
+    uses: XoldpandaX/notely/.github/workflows/deploy_prod.yml@main
