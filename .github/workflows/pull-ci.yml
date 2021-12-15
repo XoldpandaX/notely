@@ -1,0 +1,9 @@
+name: ci on pull request
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint_test:
+    uses: XoldpandaX/notely/.github/workflows/lint_test.yml@main
