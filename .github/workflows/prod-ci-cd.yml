@@ -17,3 +17,6 @@ jobs:
   deploy_prod:
     needs: [build_and_archive]
     uses: XoldpandaX/notely/.github/workflows/deploy_prod.yml@main
+    secrets:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+      firebase_service_account: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_NOTELY_456FD }}
